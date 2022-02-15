@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+
+import 'login_bottomsheet.dart';
 class IntroScreen extends StatefulWidget {
   const IntroScreen({Key? key}) : super(key: key);
 
@@ -9,6 +11,27 @@ class IntroScreen extends StatefulWidget {
 }
 
 class _IntroScreenState extends State<IntroScreen> {
+  showLoginBottomSheet(){
+    showModalBottomSheet(
+        context: context,
+        backgroundColor: Colors.black.withOpacity(0.20),
+        builder: (context) {
+          return LoginBottomSheet();
+          ///ALTERNATIVELY USE A STATEFUL BUILDER IF  YOU DONT NEED TO IMPLEMENT IN ANOTHER WIDGET
+
+            // StatefulBuilder(
+            //   builder: (BuildContext context, StateSetter setState /*You can rename this!*/) {
+            //     return Container(
+            //       height: 100,
+            //       child: RaisedButton(onPressed: () {
+            //         setState(() {
+            //          // heightOfModalBottomSheet += 10;
+            //         });
+            //       }),
+            //     );
+            //   });
+        });
+  }
   int selectedindex = 0;
   List widgetList = [
     'https://media.istockphoto.com/vectors/woman-with-laptop-sitting-in-nature-and-leaves-concept-illustration-vector-id1139913278?k=20&m=1139913278&s=612x612&w=0&h=Ue0Nh74fYCnNd5hfwBCLwJ2VeZqjXxnI5iEXqqTLXb8=',
@@ -144,7 +167,7 @@ class _IntroScreenState extends State<IntroScreen> {
           ),
           SizedBox(height: size.height *0.1,),
           Text("Ready to order from top resturants?"),
-          MaterialButton(onPressed: (){},child: Text("GET STARTED",style: TextStyle(color: Colors.white),),color: Colors.orange.shade600,),
+          MaterialButton(onPressed: (){showLoginBottomSheet();},child: Text("GET STARTED",style: TextStyle(color: Colors.white),),color: Colors.orange.shade600,),
         ],
       ),
     );
