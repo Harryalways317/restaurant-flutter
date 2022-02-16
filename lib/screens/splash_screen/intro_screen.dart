@@ -1,6 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:restaurant_flutter/commons/app_styles.dart';
+
+import '../../commons/app_colors.dart';
+import 'login_bottomsheet.dart';
 class IntroScreen extends StatefulWidget {
   const IntroScreen({Key? key}) : super(key: key);
 
@@ -9,6 +13,32 @@ class IntroScreen extends StatefulWidget {
 }
 
 class _IntroScreenState extends State<IntroScreen> {
+  showLoginBottomSheet(){
+    showModalBottomSheet(
+        context: context,
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(25.0))),
+        //TODO FINAL WAY TO ADD A BLUR BG (STILL I WONT PREFER)
+         backgroundColor: Colors.white.withOpacity(0.5),
+        barrierColor: Colors.white.withOpacity(0),
+        isScrollControlled: true,
+        builder: (context) {
+          return LoginBottomSheet();
+          ///ALTERNATIVELY USE A STATEFUL BUILDER IF  YOU DONT NEED TO IMPLEMENT IN ANOTHER WIDGET
+
+            // StatefulBuilder(
+            //   builder: (BuildContext context, StateSetter setState /*You can rename this!*/) {
+            //     return Container(
+            //       height: 100,
+            //       child: RaisedButton(onPressed: () {
+            //         setState(() {
+            //          // heightOfModalBottomSheet += 10;
+            //         });
+            //       }),
+            //     );
+            //   });
+        });
+  }
   int selectedindex = 0;
   List widgetList = [
     'https://media.istockphoto.com/vectors/woman-with-laptop-sitting-in-nature-and-leaves-concept-illustration-vector-id1139913278?k=20&m=1139913278&s=612x612&w=0&h=Ue0Nh74fYCnNd5hfwBCLwJ2VeZqjXxnI5iEXqqTLXb8=',
@@ -114,38 +144,40 @@ class _IntroScreenState extends State<IntroScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Column(
-        //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Container(
-            height: size.height * 0.65,
-            child: PageView.builder(
-                controller: _pageController,
-                onPageChanged: (int page) {
-              setState(() {
-                selectedindex = page;
-              });
-            },
-            itemCount: widgetList.length, itemBuilder: (BuildContext context, int index) {
-                  return Column(
-                    children: [
-                      Container(height: size.height * 0.5,child: Image.network(images[index],fit: BoxFit.fitHeight,)),
-                      Container(padding: EdgeInsets.symmetric(horizontal: 30,vertical: 20),child: Center(child: Text(text[index],style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,overflow: TextOverflow.ellipsis),maxLines: 3,)) ,)
+      body: SingleChildScrollView(
+        child: Column(
+          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Container(
+              height: size.height * 0.65,
+              child: PageView.builder(
+                  controller: _pageController,
+                  onPageChanged: (int page) {
+                setState(() {
+                  selectedindex = page;
+                });
+              },
+              itemCount: widgetList.length, itemBuilder: (BuildContext context, int index) {
+                    return Column(
+                      children: [
+                        Container(height: size.height * 0.5,child: Image.network(images[index],fit: BoxFit.fitHeight,)),
+                        Container(padding: EdgeInsets.symmetric(horizontal: 30,vertical: 20),child: Center(child: Text(text[index],style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,overflow: TextOverflow.ellipsis),maxLines: 3,)) ,)
 
-                    ],
-                  );
-            },),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ..._buildPageIndicator().toList(),
-            ],
-          ),
-          SizedBox(height: size.height *0.1,),
-          Text("Ready to order from top resturants?"),
-          MaterialButton(onPressed: (){},child: Text("GET STARTED",style: TextStyle(color: Colors.white),),color: Colors.orange.shade600,),
-        ],
+                      ],
+                    );
+              },),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ..._buildPageIndicator().toList(),
+              ],
+            ),
+            SizedBox(height: size.height *0.1,),
+            Text("Ready to order from top resturants?"),
+            MaterialButton(onPressed: (){showLoginBottomSheet();},child: Text("GET STARTED",style: AppStyles.textStyle1,),color: AppColors.swiggyOrange,),
+          ],
+        ),
       ),
     );
   }
