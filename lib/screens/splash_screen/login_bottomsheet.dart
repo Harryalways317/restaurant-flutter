@@ -16,19 +16,27 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
       blurValue: 10,
       alignment: Alignment.topLeft,
       color: Colors.white.withOpacity(0.5),
-      child: Container(
-        padding: EdgeInsets.symmetric(vertical: 30,horizontal: 15),
-        height: 300,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("Login".toUpperCase(),style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
-            SizedBox(height: 5,),
-            Text("Enter your phone number to proceed",style: TextStyle(color: Colors.grey.shade900,fontSize: 12),),
-            SizedBox(height: 15,),
-            Text("Phone Number".toUpperCase(),style: TextStyle(color: Colors.grey.shade900,fontSize: 12),),
-            TextField(autofocus: true,),
-          ],
+      child: SingleChildScrollView(
+        child: Padding(
+          padding:  EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom
+          ),
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 30,horizontal: 15),
+            height: 300,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Login".toUpperCase(),style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
+                SizedBox(height: 5,),
+                Text("Enter your phone number to proceed",style: TextStyle(color: Colors.grey.shade900,fontSize: 12),),
+                SizedBox(height: 15,),
+                Text("Phone Number".toUpperCase(),style: TextStyle(color: Colors.grey.shade900,fontSize: 12),),
+                TextField(autofocus: true,),
+              ],
+            ),
+          ),
         ),
       ),
     );

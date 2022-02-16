@@ -14,9 +14,12 @@ class _IntroScreenState extends State<IntroScreen> {
   showLoginBottomSheet(){
     showModalBottomSheet(
         context: context,
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(25.0))),
         //TODO FINAL WAY TO ADD A BLUR BG (STILL I WONT PREFER)
          backgroundColor: Colors.white.withOpacity(0.5),
         barrierColor: Colors.white.withOpacity(0),
+        isScrollControlled: true,
         builder: (context) {
           return LoginBottomSheet();
           ///ALTERNATIVELY USE A STATEFUL BUILDER IF  YOU DONT NEED TO IMPLEMENT IN ANOTHER WIDGET
@@ -139,38 +142,40 @@ class _IntroScreenState extends State<IntroScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Column(
-        //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Container(
-            height: size.height * 0.65,
-            child: PageView.builder(
-                controller: _pageController,
-                onPageChanged: (int page) {
-              setState(() {
-                selectedindex = page;
-              });
-            },
-            itemCount: widgetList.length, itemBuilder: (BuildContext context, int index) {
-                  return Column(
-                    children: [
-                      Container(height: size.height * 0.5,child: Image.network(images[index],fit: BoxFit.fitHeight,)),
-                      Container(padding: EdgeInsets.symmetric(horizontal: 30,vertical: 20),child: Center(child: Text(text[index],style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,overflow: TextOverflow.ellipsis),maxLines: 3,)) ,)
+      body: SingleChildScrollView(
+        child: Column(
+          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Container(
+              height: size.height * 0.65,
+              child: PageView.builder(
+                  controller: _pageController,
+                  onPageChanged: (int page) {
+                setState(() {
+                  selectedindex = page;
+                });
+              },
+              itemCount: widgetList.length, itemBuilder: (BuildContext context, int index) {
+                    return Column(
+                      children: [
+                        Container(height: size.height * 0.5,child: Image.network(images[index],fit: BoxFit.fitHeight,)),
+                        Container(padding: EdgeInsets.symmetric(horizontal: 30,vertical: 20),child: Center(child: Text(text[index],style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,overflow: TextOverflow.ellipsis),maxLines: 3,)) ,)
 
-                    ],
-                  );
-            },),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ..._buildPageIndicator().toList(),
-            ],
-          ),
-          SizedBox(height: size.height *0.1,),
-          Text("Ready to order from top resturants?"),
-          MaterialButton(onPressed: (){showLoginBottomSheet();},child: Text("GET STARTED",style: TextStyle(color: Colors.white),),color: Colors.orange.shade600,),
-        ],
+                      ],
+                    );
+              },),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ..._buildPageIndicator().toList(),
+              ],
+            ),
+            SizedBox(height: size.height *0.1,),
+            Text("Ready to order from top resturants?"),
+            MaterialButton(onPressed: (){showLoginBottomSheet();},child: Text("GET STARTED",style: TextStyle(color: Colors.white),),color: Colors.orange.shade600,),
+          ],
+        ),
       ),
     );
   }
