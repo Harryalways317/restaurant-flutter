@@ -14,7 +14,9 @@ class _IntroScreenState extends State<IntroScreen> {
   showLoginBottomSheet(){
     showModalBottomSheet(
         context: context,
-        backgroundColor: Colors.black.withOpacity(0.20),
+        //TODO FINAL WAY TO ADD A BLUR BG (STILL I WONT PREFER)
+         backgroundColor: Colors.white.withOpacity(0.5),
+        barrierColor: Colors.white.withOpacity(0),
         builder: (context) {
           return LoginBottomSheet();
           ///ALTERNATIVELY USE A STATEFUL BUILDER IF  YOU DONT NEED TO IMPLEMENT IN ANOTHER WIDGET
