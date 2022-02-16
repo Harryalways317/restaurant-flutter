@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:restaurant_flutter/commons/app_styles.dart';
 
+import '../../commons/app_colors.dart';
 import 'login_bottomsheet.dart';
 class IntroScreen extends StatefulWidget {
   const IntroScreen({Key? key}) : super(key: key);
@@ -173,7 +175,7 @@ class _IntroScreenState extends State<IntroScreen> {
             ),
             SizedBox(height: size.height *0.1,),
             Text("Ready to order from top resturants?"),
-            MaterialButton(onPressed: (){showLoginBottomSheet();},child: Text("GET STARTED",style: TextStyle(color: Colors.white),),color: Colors.orange.shade600,),
+            MaterialButton(onPressed: (){showLoginBottomSheet();},child: Text("GET STARTED",style: AppStyles.textStyle1,),color: AppColors.swiggyOrange,),
           ],
         ),
       ),
